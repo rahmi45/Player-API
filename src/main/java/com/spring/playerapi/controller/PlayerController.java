@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.playerapi.exception.PlayerNotFoundException;
 import com.spring.playerapi.model.Player;
 import com.spring.playerapi.service.PlayerService;
 
@@ -37,7 +38,9 @@ public class PlayerController {
     public Player getPlayerId(@PathVariable int playerId){
 
     	Player player =  palyerService.showPlayer(playerId);
-
+    	if(player == null){
+            throw new PlayerNotFoundException("Player with the following id does not exist in the database. id : " + playerId);
+    	}
         return player;
     }
 }
