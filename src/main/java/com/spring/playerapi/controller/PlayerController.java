@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,7 +53,17 @@ public class PlayerController {
 
         // set the id of the player id to 0
         // this will force to make an insert instead of update
-    	player.setId(0);
+    	//player.setId(0);
+    	playerService.savePlayer(player);
+        return player;
+    }
+    
+    // add mapping for PUT/ players - update a new player
+    @PutMapping("/players")
+    public Player updatePlayer(@RequestBody Player player){
+
+        // set the id of the player id to 0
+        // this will force to make an insert instead of update
     	playerService.savePlayer(player);
         return player;
     }
