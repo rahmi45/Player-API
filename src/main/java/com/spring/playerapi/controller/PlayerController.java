@@ -3,6 +3,7 @@ package com.spring.playerapi.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -66,5 +67,20 @@ public class PlayerController {
         // this will force to make an insert instead of update
     	playerService.savePlayer(player);
         return player;
+    }
+    
+    // add mapping for PUT/ players - update a new customer
+    @DeleteMapping("/players/{playerId}")
+    public String deleteCustomer(@PathVariable int playerId){
+
+    	Player player = playerService.showPlayer(playerId);
+        if(player == null){
+            throw new PlayerNotFoundException("Player with the following id does not exist in the database. id : " + playerId);
+        }
+        // set the id of the player id to 0
+        // this will force to make an insert instead of update
+        playerService.deletePlayer(playerId);
+        return "The deleted player is : " + playerId;
+
     }
 }
